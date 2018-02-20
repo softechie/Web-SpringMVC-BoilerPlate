@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<a href="http://localhost:8081/springMVC/all">View All</a>
 </body>
 </html>
