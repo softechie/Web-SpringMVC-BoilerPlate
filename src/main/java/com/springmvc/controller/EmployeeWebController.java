@@ -18,16 +18,7 @@ import com.springmvc.dto.Employee;
  *
  */
 @Controller
-//@RequestMapping("/hello")
-public class HelloController {
-
-	@RequestMapping(value="/hello", method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-
-		model.addAttribute("message", "Spring MVC Hello World");
-		return "hello";
-
-	}
+public class EmployeeWebController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String allEmployees(Model model){
 		model.addAttribute("employee", new Employee());
@@ -37,11 +28,11 @@ public class HelloController {
     public String postEmployeeDetails(@ModelAttribute("employee") Employee employee, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             System.out.println("----There was an error");
-            return "redirect:/all";
+            return "allEmployees";
         }
         else {
-        model.addAttribute("empID", employee.getEmpId());
-        return "redirect:/details";
+        model.addAttribute("employee", employee);
+        return "employeeDetails";
         }
     }
 	@RequestMapping(value = "/details", method = RequestMethod.GET)

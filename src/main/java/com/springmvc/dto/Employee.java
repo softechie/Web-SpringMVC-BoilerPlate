@@ -10,7 +10,7 @@ public class Employee {
 
 	private String empId;
 	private String name;
-	private String status;
+	private String status; //Onboarding in progress, onboarding complete, building started, training complete
 	private String tenure;
 	private String phone;
 	private String email;
@@ -19,7 +19,7 @@ public class Employee {
 	private String hl;		/* Home Location */
 	private String cl;		/* Current Location */
 	private String rmid;     /* willing to relocate YES/NO/NA */
-	private String roleid;
+	private String roleid;	//role of reporting manager, many employees to one manager
 	private String vertid;
 	private String acctid;
 	

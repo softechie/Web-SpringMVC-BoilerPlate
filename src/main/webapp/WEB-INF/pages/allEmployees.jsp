@@ -17,7 +17,7 @@
     <div id="react"></div>
 
     <script src="${pageContext.request.contextPath}/resources/js/getAllEmployees.js" type = "text/babel"></script>
-    <form:form method="POST" action="/all" modelAttribute="employee">
+    <form:form method="POST" action="/springMVC/all" modelAttribute="employee">
         <form:input path="empId" name="empId" />
         <input type="submit" value="View">
     </form:form>
