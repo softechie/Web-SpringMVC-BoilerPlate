@@ -15,6 +15,7 @@
 </head>
 <body>
 	<div id="react"></div>
+	<div id="hiddenEmpId" hidden>${empId}</div>
 	<script src="${pageContext.request.contextPath}/resources/js/employeeDetails.js" type = "text/babel"></script>
 </body>
 </html>
