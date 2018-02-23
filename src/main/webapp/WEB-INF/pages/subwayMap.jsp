@@ -11,11 +11,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
-    
+    <style>
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            left: 10px;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
-	<div id="react"></div>
-	<div id="hiddenEmpId" hidden>${empId}</div>
-	<script src="${pageContext.request.contextPath}/resources/js/getEmployeeDetails.js" type = "text/babel"></script>
+    <div id="react"></div>
+    <canvas id="myCanvas" height=90% width=90% style="border:1px solid #d3d3d3; margin-left: auto; margin-right: auto; display: block;">
+    <script src="${pageContext.request.contextPath}/resources/js/getSubwayMap.js" type = "text/babel"></script>
 </body>
 </html>
