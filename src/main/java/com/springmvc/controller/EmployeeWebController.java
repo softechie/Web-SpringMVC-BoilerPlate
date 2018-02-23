@@ -27,17 +27,19 @@ public class EmployeeWebController {
 	@RequestMapping(value = "/all", method = RequestMethod.POST)
     public String postEmployeeDetails(@ModelAttribute("employee") Employee employee, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
-            System.out.println("----There was an error");
             return "allEmployees";
         }
         else {
-        model.addAttribute("employee", employee);
-        return "employeeDetails";
+	        model.addAttribute("empId", employee.getEmpId());
+	        return "employeeDetails";
         }
     }
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public String getGmployeeDetails(Model model){
 		return "employeeDetails";
 	}
-	
+	@RequestMapping(value = "/subwaymap", method = RequestMethod.GET)
+	public String getSubwayMap(){
+		return "subwayMap";
+	}
 }
