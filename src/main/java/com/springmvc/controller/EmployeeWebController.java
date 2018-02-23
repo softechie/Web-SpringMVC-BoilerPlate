@@ -38,4 +38,8 @@ public class EmployeeWebController {
 	public String getGmployeeDetails(Model model){
 		return "employeeDetails";
 	}
+	@RequestMapping(value = "/subwaymap", method = RequestMethod.GET)
+	public String getSubwayMap(){
+		return "subwayMap";
+	}
 }
