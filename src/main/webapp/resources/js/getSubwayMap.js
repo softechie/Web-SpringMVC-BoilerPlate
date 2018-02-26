@@ -1,66 +1,40 @@
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
-
-//var nodeCount=0;
-var nodeLineCount=1;
-var nodeX=0;
-var nodeY=1;
-var nodeDirection="right";
-var nodeSpacing=50;
-var nodeRadius=10;
-var nodeLineWidth=3;
-var nodeFill="#fff";
-
-var lineWidth = 5;
-var cols = 3;
-var rows = 2;
-var xDistance = 100;
-var yDistance = 50;
-let circles = [];
-
+var circles = [];
 
 class Map extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            circlesState: []
+            employees: [],
+            circlesArray: [],
+            scale: 100,
+            nodeLineCount: 0,
+            nodeX: 0,
+            nodeY: 1,
+            nodeDirection: "right",
+            nodeRadius: 10,
+            nodeLineWidth: 3,
         };
     }
-    componentWillMount() {
-    	this._drawGrid();
-    	this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-        this._drawNode();
-    }
-    componentDidMount() {
-        circles = this.state.circlesState;
+    _loadEmployees() {
+        $.ajax({
+            url: 'http://localhost:8080/employee/all',
+            dataType: 'json',
+            success: function(data) {
+                this.setState({employees: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error('#Get Error', status, err.toString());
+            }.bind(this)
+        });
     }
     _drawGrid() {
-        //var c = document.getElementById("myCanvas");
-        //var ctx = c.getContext("2d");
-
         context.fillStyle="#000";
         context.canvas.width = window.innerWidth-(window.innerWidth*.1);
         context.canvas.height = window.innerHeight-(window.innerHeight*.1);
         context.beginPath();
-        var scale = 50;
+        var scale = this.state.scale;
         var height = window.innerHeight*scale;
         var width = window.innerWidth*scale;
         var counter=0;
@@ -92,54 +66,95 @@ class Map extends React.Component {
         context.fill();
         context.closePath();
     }
-    _drawNode() {
-    	if (canvas.width < nodeLineCount*(nodeSpacing+1)) {
-            nodeLineCount=1;
-            nodeY++;
-            if (nodeDirection==="right")
-        	nodeDirection="left";
-            else if (nodeDirection==="left")
-                nodeDirection="right";
+    _drawNode(nodeFill) {
+    	if (canvas.width < (this.state.nodeLineCount+2)*this.state.scale) {
+            this.state.nodeLineCount=0;
+            this.state.nodeY++;
+            this._drawLoopBackLine();
+            if (this.state.nodeDirection==="right")
+        	this.state.nodeDirection="left";
+            else if (this.state.nodeDirection==="left")
+                this.state.nodeDirection="right";
     	}
         else {
-            if (nodeDirection==="right")
-                nodeX++;
-            else if (nodeDirection==="left")
-                nodeX--;
+            if (this.state.nodeDirection==="right")
+                this.state.nodeX++;
+            else if (this.state.nodeDirection==="left")
+                this.state.nodeX--;
+            this._drawLine();
         }
-    	var x = nodeX*nodeSpacing;
-        var y = nodeY*nodeSpacing;
+    	var x = this.state.nodeX*this.state.scale;
+        var y = this.state.nodeY*this.state.scale;
         context.beginPath();
     	context.strokeStyle = "#000";
-    	context.lineWidth=nodeLineWidth;
-    	context.arc(x, y, nodeRadius, 0, 2 * Math.PI);
-    	context.fillStyle ="#fff";
+    	context.lineWidth=this.state.nodeLineWidth;
+    	context.arc(x, y, this.state.nodeRadius, 0, 2 * Math.PI);
+    	context.fillStyle = nodeFill;
     	context.fill();
     	context.stroke();
-        this.state.circlesState.push({
+        this.state.circlesArray.push({
             id: x + "-" + y,
             x: x,
             y: y,
-            radius: nodeRadius
+            radius: this.state.nodeRadius
         });
-        nodeLineCount++;
-        this._drawLine();
+        this.state.nodeLineCount++;
     }
     _drawLine(){
-        var lineX = (nodeX*nodeSpacing)+nodeRadius;
-        var lineY = (nodeY*nodeSpacing);
+        var lineX = this.state.nodeX*this.state.scale;
+        var lineY = this.state.nodeY*this.state.scale;
         context.beginPath();
-        context.moveTo(lineX, lineY);
-        context.lineTo(lineX + ((nodeX*nodeSpacing)-nodeRadius), lineY);
+        
+        if (this.state.nodeDirection==="right") {
+            context.moveTo(lineX-this.state.nodeRadius, lineY);
+            context.lineTo(lineX - (this.state.scale-this.state.nodeRadius), lineY);
+        }
+        else if (this.state.nodeDirection==="left") {
+            context.moveTo(lineX+this.state.nodeRadius, lineY);
+            context.lineTo(lineX + (this.state.scale-this.state.nodeRadius), lineY);
+        }
     	context.strokeStyle = "#000";
-    	context.lineWidth=nodeLineWidth;
+    	context.lineWidth=this.state.nodeLineWidth;
     	context.stroke();
     }
     
+    _drawLoopBackLine(){
+        var lineX = this.state.nodeX*this.state.scale;
+        var lineY = (this.state.nodeY-.5)*this.state.scale;
+        context.beginPath();
+        
+        if (this.state.nodeDirection==="right") {
+            context.arc(lineX+this.state.nodeRadius, lineY, this.state.scale/2, 1.5 * Math.PI, .5 * Math.PI);
+        }
+        else if (this.state.nodeDirection==="left") {
+            context.arc(lineX-this.state.nodeRadius, lineY, this.state.scale/2, .5 * Math.PI, 1.5 * Math.PI);
+        }
+    	context.strokeStyle = "#000";
+    	context.lineWidth=this.state.nodeLineWidth;
+    	context.stroke();
+    }
+    componentDidMount() {
+        this._loadEmployees();
+    	this._drawGrid();
+        var self = this;
+        this.state.employees.map(function(employee) {
+            var color = '#fff';
+            if (employee.status === "Onboarding Completed")
+                color = '#70f441';
+            else if (employee.status === "Onboarding In Progress")
+                color = '#f4dc42';
+            else if (employee.status === "Onboarding Cancelled")
+                color = '#f45f41';
+            self._drawNode(color);
+        });
+    }
+    componentDidMount() {
+        circles = this.state.circlesArray;
+    }
     render() {
         return (
             <div>
-                {this.state.circlesState.map(function(circle) {
+                {this.state.circlesArray.map(function(circle) {
                     var circleId = circle.id;
                     return (
                         <div id={circleId+"-content"} className="dropdown-content" key={circleId+"-content"}>
@@ -148,10 +163,9 @@ class Map extends React.Component {
                     );
                 })}
             </div>
-        )
+        );
     }
 }
-
 ReactDOM.render(
     <Map />,
     document.getElementById('react')
