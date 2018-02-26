@@ -8,13 +8,13 @@ class Map extends React.Component {
         this.state = {
             employees: [],
             circlesArray: [],
-            scale: 100,
+            scale: 80,
             nodeLineCount: 0,
             nodeX: 0,
             nodeY: 1,
             nodeDirection: "right",
             nodeRadius: 10,
-            nodeLineWidth: 3,
+            nodeLineWidth: 3
         };
     }
     _loadEmployees() {
@@ -26,7 +26,8 @@ class Map extends React.Component {
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error('#Get Error', status, err.toString());
-            }.bind(this)
+            }.bind(this),
+            async: false
         });
     }
     _drawGrid() {
@@ -66,7 +67,7 @@ class Map extends React.Component {
         context.fill();
         context.closePath();
     }
-    _drawNode(nodeFill) {
+    _drawNode(nodeFill, nodeEmployee) {
     	if (canvas.width < (this.state.nodeLineCount+2)*this.state.scale) {
             this.state.nodeLineCount=0;
             this.state.nodeY++;
@@ -94,6 +95,20 @@ class Map extends React.Component {
     	context.stroke();
         this.state.circlesArray.push({
             id: x + "-" + y,
+            empId: nodeEmployee.empId,
+            name: nodeEmployee.name,
+            tenure: nodeEmployee.tenure,
+            status: nodeEmployee.status,
+            phone: nodeEmployee.phone,
+            email: nodeEmployee.email,
+            doj: nodeEmployee.doj,
+            wl: nodeEmployee.wl,
+            hl: nodeEmployee.hl,
+            cl: nodeEmployee.cl,
+            rmid: nodeEmployee.rmid,
+            roleid: nodeEmployee.roleid,
+            vertid: nodeEmployee.vertid,
+            acctid: nodeEmployee.acctid,
             x: x,
             y: y,
             radius: this.state.nodeRadius
@@ -133,10 +148,8 @@ class Map extends React.Component {
     	context.lineWidth=this.state.nodeLineWidth;
     	context.stroke();
     }
-    componentDidMount() {
-        this._loadEmployees();
-    	this._drawGrid();
-        var self = this;
+    _addNodes(){
+        let self = this;
         this.state.employees.map(function(employee) {
             var color = '#fff';
             if (employee.status === "Onboarding Completed")
@@ -145,20 +158,39 @@ class Map extends React.Component {
                 color = '#f4dc42';
             else if (employee.status === "Onboarding Cancelled")
                 color = '#f45f41';
-            self._drawNode(color);
+            self._drawNode(color, employee);
         });
+        circles = this.state.circlesArray;
+    }
+    componentWillMount() {
+        this._loadEmployees();
+        this._drawGrid();
     }
     componentDidMount() {
-        circles = this.state.circlesArray;
+
     }
     render() {
         return (
             <div>
+                {this._addNodes()}
                 {this.state.circlesArray.map(function(circle) {
                     var circleId = circle.id;
                     return (
                         <div id={circleId+"-content"} className="dropdown-content" key={circleId+"-content"}>
-                            Hello
+                            <div>Employee Id:{circle.empId}</div>
+                            <div>Name:{circle.name}</div>
+                            <div>Tenure: {circle.tenure}</div>
+                            <div>Status: {circle.status}</div>
+                            <div>Phone: {circle.phone}</div>
+                            <div>Email: {circle.email}</div>
+                            <div>DOJ: {circle.doj}</div>
+                            <div>WL: {circle.wl}</div>
+                            <div>HL: {circle.hl}</div>
+                            <div>CL: {circle.cl}</div>
+                            <div>RMID: {circle.rmid}</div>
+                            <div>RoleID: {circle.roleid}</div>
+                            <div>VertID: {circle.vertid}</div>
+                            <div>AcctID: {circle.acctid}</div>
                         </div>
                     );
                 })}
