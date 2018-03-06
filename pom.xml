@@ -62,6 +62,14 @@
     	<artifactId>spring-core</artifactId>
     	<version>4.3.10.RELEASE</version>
     </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin -->
+	<dependency>
+	    <groupId>com.github.eirslett</groupId>
+	    <artifactId>frontend-maven-plugin</artifactId>
+	    <version>1.6</version>
+	</dependency>
+    
   </dependencies>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
