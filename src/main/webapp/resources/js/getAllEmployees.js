@@ -3,7 +3,7 @@ class Main extends React.Component {
         super(props);
         this.state = {employees: []}
     }
-    loadEmployees() {
+    _loadEmployees() {
         $.ajax({
             url: 'http://localhost:8080/employee/all',
             dataType: 'json',
@@ -16,7 +16,7 @@ class Main extends React.Component {
         });
     }
     componentDidMount() {
-        this.loadEmployees();
+        this._loadEmployees();
     }
     render() {
         //var self = this;

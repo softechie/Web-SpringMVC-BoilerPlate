@@ -18,6 +18,7 @@ import com.springmvc.dto.Employee;
  *
  */
 @Controller
+@RequestMapping( value = "/employee")
 public class EmployeeWebController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String allEmployees(Model model){
