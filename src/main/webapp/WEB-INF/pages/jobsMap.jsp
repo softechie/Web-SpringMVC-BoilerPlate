@@ -15,7 +15,7 @@
     <link href="${pageContext.request.contextPath}" id="resourcesPath">
 </head>
 <body>
-    <div id="reactHeader"></div>
+    <div id="reactPageHeader"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type = "text/babel"></script>
         
     <div class="info">
@@ -25,13 +25,13 @@
         <p>ReactJS draws a grid, and dynamically draws the nodes and the lines based on the dependencies of the job data received from the API</p>
         <p>Hidden job information corresponds to each node, that shows when the user hovers, and uses JQuery to follow the user mouse</p>
     </div>
-    <div id="reactButtons"></div>
+    <div id="reactJobsMapButtons"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getJobsMapButtons.js" type = "text/babel"></script>
-    <div id="reactContent"></div>
+    <div id="reactJobsMap"></div>
     <canvas id="canvas" resize="true" data-paper-resize="true"></canvas>
     <script src="${pageContext.request.contextPath}/resources/js/getJobsMap.js" type = "text/babel"></script>
     
-    <div id="reactFooter"></div>
+    <div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type = "text/babel"></script>
 </body>
 </html>
