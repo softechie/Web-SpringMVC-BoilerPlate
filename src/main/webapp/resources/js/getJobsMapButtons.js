@@ -1,4 +1,4 @@
-class ActionButtons extends React.Component {
+class JobsMapButtons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -55,6 +55,6 @@ class ActionButtons extends React.Component {
 }
 //Create a new Map object from the React class Component, and add it to the DOM
 ReactDOM.render(
-    <ActionButtons />,
-    document.getElementById('reactButtons')
+    <JobsMapButtons />,
+    document.getElementById('reactJobsMapButtons')
 );

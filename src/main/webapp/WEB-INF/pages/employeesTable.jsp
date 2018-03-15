@@ -15,7 +15,7 @@
     <link href="${pageContext.request.contextPath}" id="resourcesPath">
 </head>
 <body>
-    <div id="reactHeader"></div>
+    <div id="reactPageHeader"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type = "text/babel"></script>
     
     <div class="info">
@@ -24,7 +24,7 @@
         <p>The view is rendered via ReactJS by returning a standard HTML table</p>
         <p>The data in the table is fetched from a remote REST API</p>
     </div>
-    <div id="reactContent"></div>
+    <div id="reactEmployeesTable"></div>
 
     <script src="${pageContext.request.contextPath}/resources/js/getEmployeesTable.js" type = "text/babel"></script>
     <script>
@@ -42,7 +42,7 @@
         <input type="submit" value="View">
     </form:form>
         
-    <div id="reactFooter"></div>
+    <div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type = "text/babel"></script>
 </body>
 </html>

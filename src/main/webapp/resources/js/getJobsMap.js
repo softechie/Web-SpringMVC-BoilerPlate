@@ -2,7 +2,7 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var circles = [];
 
-class Map extends React.Component {
+class JobsMap extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -327,8 +327,8 @@ class Map extends React.Component {
 }
 //Create a new Map object from the React class Component, and add it to the DOM
 ReactDOM.render(
-    <Map />,
-    document.getElementById('reactContent')
+    <JobsMap />,
+    document.getElementById('reactJobsMap')
 );
 
 //Handle the user hovering over a particular node
@@ -366,10 +366,10 @@ function resizeCanvas() {
     canvas.width = window.innerWidth*.9;
     
     //clear the contents and rerender the Map
-    document.getElementById('reactContent').innerHTML = "";
+    document.getElementById('reactJobsMap').innerHTML = "";
     ReactDOM.render(
-    <Map />,
-    document.getElementById('reactContent')
+    <JobsMap />,
+    document.getElementById('reactJobsMap')
 );
 }
 

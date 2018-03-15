@@ -2,7 +2,7 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 var circles = [];
 
-class Map extends React.Component {
+class JobsOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -189,8 +189,8 @@ class Map extends React.Component {
     }
 }
 ReactDOM.render(
-    <Map />,
-    document.getElementById('reactContent')
+    <JobsOrder />,
+    document.getElementById('reactJobsOrder')
 );
 
 //Handle the user hovering over a particular node

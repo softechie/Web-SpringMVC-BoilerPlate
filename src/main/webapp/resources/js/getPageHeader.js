@@ -1,4 +1,4 @@
-class Header extends React.Component {
+class PageHeader extends React.Component {
     render() {     
         var resourcePath=document.getElementById('resourcesPath');
         return (
@@ -15,6 +15,6 @@ class Header extends React.Component {
     }
 };
 ReactDOM.render(
-    <Header />,
-    document.getElementById('reactHeader')
+    <PageHeader />,
+    document.getElementById('reactPageHeader')
 );
