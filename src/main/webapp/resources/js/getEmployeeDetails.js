@@ -1,4 +1,4 @@
-class Main extends React.Component {
+class EmployeeDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {employees: []};
@@ -38,7 +38,7 @@ class Main extends React.Component {
                                 <div>Employee Id:{employee.empId}</div>
                                 <div>Name:{employee.name}</div>
                                 <div>Tenure: {employee.tenure}</div>
-                                <div style={colorStyle}>Status: {employee.status}</div>
+                                <div>Status: {employee.status}</div>
                                 <div>Phone: {employee.phone}</div>
                                 <div>Email: {employee.email}</div>
                                 <div>DOJ: {employee.doj}</div>
@@ -59,6 +59,6 @@ class Main extends React.Component {
 }
 
 ReactDOM.render(
-    <Main />,
-    document.getElementById('reactContent')
+    <EmployeeDetails />,
+    document.getElementById('reactEmployeeDetails')
 )

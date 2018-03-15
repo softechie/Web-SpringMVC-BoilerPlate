@@ -1,4 +1,4 @@
-class Footer extends React.Component {
+class PageFooter extends React.Component {
     render() {        
         return (
             <div className="footer-container">
@@ -10,6 +10,6 @@ class Footer extends React.Component {
     }
 };
 ReactDOM.render(
-    <Footer />,
-    document.getElementById('reactFooter')
+    <PageFooter />,
+    document.getElementById('reactPageFooter')
 );
