@@ -32,6 +32,21 @@ class JobsMap extends React.Component {
         });
     }
     
+    _loadLocalJobs() {
+        var resourcesPath= document.getElementById("resourcesPath").getAttribute("href");
+        $.ajax({
+            url: resourcesPath+'/resources/js/JobList.json',
+            dataType: 'json',
+            success: function(data) {
+                this.setState({jobs: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error('#Get Error', status, err.toString());
+            }.bind(this),
+            async: false
+        });
+    }
+    
     //the main render function that handles the generation and organization
     //of the job nodes
     _renderNodes() {
@@ -98,7 +113,8 @@ class JobsMap extends React.Component {
             var isChild = false;
             self.state.jobs.map(function(refJob) {
                 refJob.dependencies.map(function(dep) {
-                    if (job.ref === JSON.parse(dep).ref)
+                    //if (job.ref === JSON.parse(dep).ref) //Used for API JSON Raw
+                    if (job.ref === dep.ref) //Used for JSON Object file
                         isChild=true;
                 });
             });
@@ -206,7 +222,8 @@ class JobsMap extends React.Component {
             });
             if (!isDrawn) {
                 depRefs.map(function(depRef) {
-                    if (job.ref === JSON.parse(depRef).ref)
+                    //if (job.ref === JSON.parse(depRef).ref)
+                		if (job.ref === depRef.ref)
                         childJobs.push(job);
                 });
             }
@@ -221,7 +238,8 @@ class JobsMap extends React.Component {
             nodeStart.dependencies.map(function(depRef) {
                 for (var i = 0; i < self.state.nodes.length; i++) {
                     //alert(depRef+" == "+self.state.nodes[i].ref);
-                    if (JSON.parse(depRef).ref === self.state.nodes[i].ref) {
+                		//if (JSON.parse(depRef).ref === self.state.nodes[i].ref) {
+                    if (depRef.ref === self.state.nodes[i].ref) {
                         self._drawLine(nodeStart.x, nodeStart.y, 
                                 self.state.nodes[i].x, self.state.nodes[i].y);
                         break;
@@ -291,8 +309,8 @@ class JobsMap extends React.Component {
     }
     //Must load the jobs before render to gather data synchronously
     componentWillMount() {
-        this._loadJobs();
-        
+        //this._loadJobs();
+        this._loadLocalJobs();
     }
     componentDidMount() {
 
@@ -315,7 +333,8 @@ class JobsMap extends React.Component {
                             <div>Dependencies:</div>
                             {node.dependencies.map(function(ref) {
                             	return (
-                                    <div>{JSON.parse(ref).ref}</div>
+                            		//<div>{JSON.parse(ref).ref}</div>
+                                <div>{ref.ref}</div>
                                 );
                             })}
                         </div>
