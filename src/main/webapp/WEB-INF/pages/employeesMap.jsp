@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="reactPageHeader"></div>
-<!--    <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type = "text/babel"></script>-->
+    <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type = "text/babel"></script>
     
     <div class="info">
         <h3>2) Employee Map Example</h3>
@@ -27,10 +27,9 @@
     </div>
     <div id="reactEmployeesMap"></div>
     <canvas id="myCanvas" height=90% width=90% style="border:1px solid #d3d3d3; margin-left: auto; margin-right: auto; display: block;"></canvas>
-<!--    <script src="${pageContext.request.contextPath}/resources/js/getEmployeesMap.js" type = "text/babel"></script>-->
+    <script src="${pageContext.request.contextPath}/resources/js/getEmployeesMap.js" type = "text/babel"></script>
     
     <div id="reactPageFooter"></div>
-    
-    <script src="${pageContext.request.contextPath}/resources/built/bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js"></script>
 </body>
 </html>
