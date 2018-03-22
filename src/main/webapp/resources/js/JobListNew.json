@@ -1,0 +1,21 @@
+[
+  {
+    "SOR":"Triumph",
+    "Platforms": [
+      {
+        "PlatformName": "ARDW",
+        "Jobs": [
+          {
+            "JobName":"TH0CSITX",
+            "OutputFiles": [
+              {
+                "OutputFileName":"TH0CT.PHTHSITX.D06.NPSITXF.J171201",
+                "OutputFileType":"Flat File"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

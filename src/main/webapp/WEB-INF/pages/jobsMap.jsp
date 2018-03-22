@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>3) Job Map</title>
+    <title>Job Map</title>
     <script src="https://fb.me/react-15.0.1.js"></script>
     <script src="https://fb.me/react-dom-15.0.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
@@ -25,8 +25,9 @@
         <p>ReactJS draws a grid, and dynamically draws the nodes and the lines based on the dependencies of the job data received from the API</p>
         <p>Hidden job information corresponds to each node, that shows when the user hovers, and uses JQuery to follow the user mouse</p>
     </div>
-    <div id="reactJobsMapButtons"></div>
+    <!--<div id="reactJobsMapButtons"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getJobsMapButtons.js" type = "text/babel"></script>
+    -->
     <div id="reactJobsMap"></div>
     <canvas id="canvas" resize="true" data-paper-resize="true"></canvas>
     <script src="${pageContext.request.contextPath}/resources/js/getJobsMap.js" type = "text/babel"></script>

@@ -1,6 +1,23 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+context.translate(0.5, 0.5);
 var circles = [];
+
+class Grid extends React.Component {
+    
+};
+
+class SOR extends React.Component {
+    
+};
+
+class Platform extends React.Component {
+    
+};
+
+class Jobs extends React.Component {
+    
+};
 
 class JobsMap extends React.Component {
     constructor(props) {
@@ -30,6 +47,20 @@ class JobsMap extends React.Component {
             }.bind(this),
             async: false
         });
+    }
+    
+    _loadJobsCORS() {            
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:8080/job2/all', false);
+        request.onreadystatechange = function() {
+        		if (request.readyState==4) {
+        			alert(request.responseText);
+        		}
+        	};
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.setRequestHeader("Content-length", 0);
+        request.setRequestHeader("Connection", "close");
+        request.send();
     }
     
     _loadLocalJobs() {
@@ -103,6 +134,13 @@ class JobsMap extends React.Component {
         context.lineWidth = 1;
         context.stroke();
         context.fill();
+        
+        context.fillStyle = "#000";
+        context.font = "30px Arial";
+        context.textAlign="center"; 
+        context.fillText("SOR", context.canvas.width/2, 50);
+        
+        
         context.closePath();
     }
     
@@ -187,9 +225,14 @@ class JobsMap extends React.Component {
     	context.fillStyle = fill;
     	context.fill();
         context.fillStyle = "#000";
+        var jobName = job.type;
+        if (jobName.length > 15) {
+            jobName = jobName.substring(0,15) + "...";
+        }
+        context.textAlign="left"; 
         context.font = this.state.scale/10 + "px Arial";
-        context.fillText(job.type, xRounded + (this.state.scale / 10),
-                yRounded + (this.state.scale / 10));
+        context.fillText(jobName, xRounded + (this.state.scale / 10),
+            yRounded + (this.state.scale / 10));
     	context.stroke();
         
         //push the drawn node to the nodes array
@@ -309,8 +352,9 @@ class JobsMap extends React.Component {
     }
     //Must load the jobs before render to gather data synchronously
     componentWillMount() {
-        //this._loadJobs();
         this._loadLocalJobs();
+        //this._loadJobs();
+        //this._loadJobsCORS();
     }
     componentDidMount() {
 
