@@ -1,20 +1,25 @@
 package com.springmvc.dto;
 
-import java.util.ArrayList;
-
 public class Job {
 
     public String id;
-    public String JobName;
-    public ArrayList<OutputFile> OutputFiles;
-    public ArrayList<String> Dependencies;
-    
-	public Job() { }
-	public Job(String id, String jobName, ArrayList<OutputFile> outputFiles, ArrayList<String> dependencies) {
+    public String category;
+    public String type;
+    public String ref;
+    public int state;
+    public int scheduled;
+    public String[] dependencies;
+
+	public Job() {}
+	public Job(String id, String category, String type, String ref, int state, int scheduled, String[] dependencies) {
+		super();
 		this.id = id;
-		JobName = jobName;
-		OutputFiles = outputFiles;
-		Dependencies = dependencies;
+		this.category = category;
+		this.type = type;
+		this.ref = ref;
+		this.state = state;
+		this.scheduled = scheduled;
+		this.dependencies = dependencies;
 	}
 	public String getId() {
 		return id;
@@ -22,23 +27,47 @@ public class Job {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getJobName() {
-		return JobName;
+	public String getCategory() {
+		return category;
 	}
-	public void setJobName(String jobName) {
-		JobName = jobName;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	public ArrayList<OutputFile> getOutputFiles() {
-		return OutputFiles;
+	public String getType() {
+		return type;
 	}
-	public void setOutputFiles(ArrayList<OutputFile> outputFiles) {
-		OutputFiles = outputFiles;
+	public void setType(String type) {
+		this.type = type;
 	}
-	public ArrayList<String> getDependencies() {
-		return Dependencies;
+	public String getRef() {
+		return ref;
 	}
-	public void setDependencies(ArrayList<String> dependencies) {
-		Dependencies = dependencies;
+	public void setRef(String ref) {
+		this.ref = ref;
 	}
-    
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public int getScheduled() {
+		return scheduled;
+	}
+	public void setScheduled(int scheduled) {
+		this.scheduled = scheduled;
+	}
+	public String[] getDependencies() {
+		return dependencies;
+	}
+	public void setDependencies(String[] dependencies) {
+		this.dependencies = dependencies;
+	}
+	@Override
+    public String toString() {
+        return String.format(
+                "Job[id=%s, category='%s', type='%s', ref='%s', state='%d', scheduled='%d', dependencies='%s']",
+                id, category, type, ref, state, scheduled, dependencies);
+    }
+	
 }
