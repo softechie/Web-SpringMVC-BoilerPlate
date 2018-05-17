@@ -1,5 +1,5 @@
 # Web-SpringMVC-BoilerPlate
 
-My First Git Repository
+Spring MVC Project that consumes REST APIs and produces a front end view using ReactJS ffor the purposes of learning how Spring MVC works and the process of pulling data and using it in a meaningful way
 
-Spring MVC Demo project to display hello message.
+
