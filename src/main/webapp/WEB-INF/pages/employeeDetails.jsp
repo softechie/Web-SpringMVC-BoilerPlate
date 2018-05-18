@@ -22,7 +22,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type="text/babel"></script>
 
     <div id="reactEmployeeDetails"></div>
-    <div id="hiddenEmpId">${empId}</div>
+    <div id="hiddenEmpId" style="visibility: hidden">${empId}</div>
     <script src="${pageContext.request.contextPath}/resources/js/getEmployeeDetails.js" type="text/babel"></script>
 
     <div id="reactPageFooter"></div>
