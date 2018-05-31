@@ -36,14 +36,14 @@ class EmployeeDetails extends React.Component {
                             color = '#f45f41';
                         var colorStyle = { backgroundColor: color };
                         return (
-                        		<div key = { employee.empId } >
-	                            <div> Employee Id: { employee.empId } </div>
-	                            <div> Name: { employee.name } </div>
-	                            <div> Tenure: { employee.tenure } </div>
-	                            <div style={colorStyle}> Status: { employee.status } </div>
-	                            <div> Phone: { employee.phone } </div>
-	                            <div> Email: { employee.email } </div>
-	                            <div> AcctID: { employee.acctid } </div>
+                            <div key = { employee.empId } >
+                                <div> Employee Id: { employee.empId } </div>
+                                <div> Name: { employee.name } </div>
+                                <div> Tenure: { employee.tenure } </div>
+                                <div style={colorStyle}> Status: { employee.status } </div>
+                                <div> Phone: { employee.phone } </div>
+                                <div> Email: { employee.email } </div>
+                                <div> AcctID: { employee.acctid } </div>
                             </div>
                         )
                     }
