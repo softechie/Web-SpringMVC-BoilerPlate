@@ -177,20 +177,12 @@ class EmployeesMap extends React.Component {
                     var circleId = circle.id;
                     return (
                         <div id={circleId+"-content"} className="dropdown-content" key={circleId+"-content"}>
-                            <div>Employee Id:{circle.empId}</div>
-                            <div>Name:{circle.name}</div>
+                            <div>Employee Id: {circle.empId}</div>
+                            <div>Name: {circle.name}</div>
                             <div>Tenure: {circle.tenure}</div>
                             <div>Status: {circle.status}</div>
                             <div>Phone: {circle.phone}</div>
                             <div>Email: {circle.email}</div>
-                            <div>DOJ: {circle.doj}</div>
-                            <div>WL: {circle.wl}</div>
-                            <div>HL: {circle.hl}</div>
-                            <div>CL: {circle.cl}</div>
-                            <div>RMID: {circle.rmid}</div>
-                            <div>RoleID: {circle.roleid}</div>
-                            <div>VertID: {circle.vertid}</div>
-                            <div>AcctID: {circle.acctid}</div>
                         </div>
                     );
                 })}

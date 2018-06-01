@@ -18,7 +18,7 @@
     <link href="${pageContext.request.contextPath}" id="resourcesPath">
 </head>
 <body>
-    <div id="reactHeader"></div>
+    <div id="reactPageHeader"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type = "text/babel"></script>
     
     <div class="info">
@@ -46,7 +46,7 @@
         </div>
     </div>
         
-    <div id="reactFooter"></div>
+    <div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type = "text/babel"></script>
 </body>
 </html>
