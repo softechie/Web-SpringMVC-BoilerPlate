@@ -1,4 +1,3 @@
-/target/
 node_modules/
 
 # eclipse specific git ignore
