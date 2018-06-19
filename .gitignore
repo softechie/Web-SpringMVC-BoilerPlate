@@ -1,18 +1,9 @@
-node_modules/
-
-# eclipse specific git ignore
-*.pydevproject
-.project
-.metadata
-bin/**
+*.DS_Store
 bin
-tmp/**
-tmp/**/*
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
+target
 .classpath
-.settings/
-.loadpath
+.project
+.settings
+src/main/webapp/META-INF
+.idea
+*.iml
