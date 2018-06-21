@@ -45,4 +45,23 @@ public class EmployeeWebController {
 	public String getEmployeesMap(){
 		return "employeesMap";
 	}
+	
+	//maps to form page to add a new employee
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String getEmployeeForm(Model model){
+		model.addAttribute("employee", new Employee());
+		return "newEmployee";
+	}
+	
+	//prints the data entered in the form
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String postNewEmployeeDetails(@ModelAttribute("employee") Employee employee, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "newEmployee";
+        }
+        else {
+	        model.addAttribute("employee", employee);
+	        return "printNewEmployee";
+        }
+    }
 }
