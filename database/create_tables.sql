@@ -1,0 +1,2 @@
+create table files(name varchar(20) not null primary key, recordCount bigint, seqNo integer, sourceSysName varchar(20),
+					    arrivalTime time, startTime time, completeTime time, status varchar(20), record bigint, priority integer);
