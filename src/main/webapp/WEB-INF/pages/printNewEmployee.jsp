@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<html lang="en">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New Employee Details</title>
@@ -18,27 +18,43 @@
 <body>
 	<div id="reactPageHeader"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type="text/babel"></script>
-
-	<div>
-		<div>Employee ID: ${employee.empId}</div>
-		<div>Name: ${employee.name}</div>
 		
-		<c:choose>
-			<c:when test = "${employee.status == 'Onboarding Completed'}">
-				<div style="background-color:#70f441;">Status: ${employee.status}</div>
-			</c:when>
-			<c:when test = "${employee.status == 'Onboarding In Progress'}">
-				<div style="background-color:#f4dc42;">Status: ${employee.status}</div>
-			</c:when>
-			<c:when test = "${employee.status == 'Onboarding Cancelled'}">
-				<div style="background-color:#f45f41;">Status: ${employee.status}</div>
-			</c:when>
-		</c:choose>
-		<div>Tenure: ${employee.tenure} </div>
-		<div>Phone number: ${employee.phone}</div>
-		<div>Email: ${employee.email}</div>
-	</div>
+		
+		<div id="details"></div>
 	
+	
+	<script type="text/babel">
+	class ViewEmployee extends React.Component {
+    	render() {   
+
+		var color;
+		var status = "${employee.status}";
+		switch(status){
+			case "Onboarding Completed": color = "#70f441"; break;
+			case "Onboarding In Progress": color = "#f4dc42"; break;
+			case "Onboarding Cancelled": color = "#f45f41"; break;
+		}
+
+				return (
+            			<div>
+            				<div>Employee ID: ${employee.empId}</div>
+							<div>Name: ${employee.name}</div>
+							<div>Tenure: ${employee.tenure}</div>
+							<div>Phone Number: ${employee.phone}</div>
+							<div>Email: ${employee.email}</div>
+							<div style={{backgroundColor: color}}>Status: ${employee.status}</div>
+            			</div>
+
+					);
+		}
+
+	};
+ReactDOM.render(
+    <ViewEmployee />,
+    document.getElementById('details')
+);
+	</script>
+  
 	<div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type="text/babel"></script>
 </body>
