@@ -68,6 +68,13 @@
     		<version>1.6</version>
     		<type>maven-plugin</type>
     </dependency>
+    
+    <!--postgres dependency-->
+    <dependency>
+	<groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<version>9.4.1212</version>
+    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
