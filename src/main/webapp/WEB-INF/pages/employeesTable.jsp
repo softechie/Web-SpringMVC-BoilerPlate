@@ -19,6 +19,7 @@
     <link href="${pageContext.request.contextPath}" id="resourcesPath">
 </head>
 <body>
+    
     <!-- React Stuff to get the header
     <div id="reactPageHeader"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type="text/babel"></script>
@@ -109,11 +110,11 @@
                 <a href="https://docs.mongodb.com/" class="footer-link">MongoDB Documentation</a>
     </div>
          
-    <!--Needed for the React Pages     
+    <!--React Stuff for getting the employee Table     
     <div id="reactEmployeesTable"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getEmployeesTable.js" type="text/babel"></script>
     
-
+    <!--React stuff for getting the footer
     <div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type="text/babel"></script>
     -->
