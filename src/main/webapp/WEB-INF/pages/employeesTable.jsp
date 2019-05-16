@@ -38,9 +38,10 @@
     
     <div class="info">
         <h3>1) All Employees Example</h3>
-        <h4>ReactJS View, with MongoDB model, and REST API</h4>
-        <p>The view is rendered via ReactJS by returning a standard HTML table</p>
-        <p>The data in the table is fetched from a remote REST API</p>
+        <h4>Simple JSP database calls for all employees and a single employee</h4>
+        <p>The data in the table is fetched using JSTL.</p>
+        <p>You can view specific employee details by typing in the Employee ID.</p>
+        <p>It fetches the Employee details with JSTL and displays them on the screen.</p>
     </div>
 
     <form:form method="POST" action="/springMVC/employee/table" modelAttribute="employee">
