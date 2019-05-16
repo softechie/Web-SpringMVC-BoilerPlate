@@ -37,9 +37,10 @@
     
     <div class="info">
         <h3>1) All Employees Example</h3>
-        <h4>ReactJS View, with MongoDB model, and REST API</h4>
-        <p>The view is rendered via ReactJS by returning a standard HTML table</p>
-        <p>The data in the table is fetched from a remote REST API</p>
+        <h4>Simple JSP database calls for all employees and a single employee</h4>
+        <p>The data in the table is fetched using JSTL.</p>
+        <p>You can view specific employee details by typing in the Employee ID.</p>
+        <p>It fetches the Employee details with JSTL and displays them on the screen.</p>
     </div>
 
     <form:form method="POST" action="/springMVC/employee/table" modelAttribute="employee">
@@ -80,7 +81,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var = "row" items = "${result.rows}">
+        <c:forEach var = "row" items = "${result.rows}">
             <tr>
                <td><c:out value = "${row.EMPID}"/></td>
                <td><c:out value = "${row.NAME}"/></td>
@@ -109,11 +110,11 @@
                 <a href="https://docs.mongodb.com/" class="footer-link">MongoDB Documentation</a>
     </div>
          
-    <!--Needed for the React Pages     
+    <!--React Stuff for getting the employee Table     
     <div id="reactEmployeesTable"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getEmployeesTable.js" type="text/babel"></script>
     
-
+    <!--React stuff for getting the footer
     <div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type="text/babel"></script>
     -->
