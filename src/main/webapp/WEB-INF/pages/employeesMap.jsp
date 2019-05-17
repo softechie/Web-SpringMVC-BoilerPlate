@@ -92,6 +92,128 @@
         context.fill();
         context.closePath();
         
+        //Add Nodes
+        function _addNodes(){
+            employees.map(function(employee) {
+                var color = '#fff';
+                if (employee.status === "Onboarding Completed")
+                    color = '#70f441';
+                else if (employee.status === "Onboarding In Progress")
+                    color = '#f4dc42';
+                else if (employee.status === "Onboarding Cancelled")
+                    color = '#f45f41';
+                _drawNode(color, employee);
+            });
+            circles = nodes;
+        }
+        
+        //Draw Line
+        function _drawLine(){
+            var lineX = nodeX*scale;
+            var lineY = nodeY*scale;
+            context.beginPath();
+
+            if (nodeDirection==="right") {
+                context.moveTo(lineX-nodeRadius, lineY);
+                context.lineTo(lineX - (scale-nodeRadius), lineY);
+            }
+            else if (nodeDirection==="left") {
+                context.moveTo(lineX+nodeRadius, lineY);
+                context.lineTo(lineX + (scale-nodeRadius), lineY);
+            }
+            context.strokeStyle = "#000";
+            context.lineWidth=nodeLineWidth;
+            context.stroke();
+        }
+        
+        //Draw Loop Back Line
+        function _drawLoopBackLine(){
+            var lineX = nodeX*scale;
+            var lineY = (nodeY-.5)*scale;
+            context.beginPath();
+
+            if (nodeDirection==="right") {
+                context.arc(lineX+nodeRadius, lineY, scale/2, 1.5 * Math.PI, .5 * Math.PI);
+            }
+            else if (nodeDirection==="left") {
+                context.arc(lineX-nodeRadius, lineY, scale/2, .5 * Math.PI, 1.5 * Math.PI);
+            }
+            context.strokeStyle = "#000";
+            context.lineWidth=nodeLineWidth;
+            context.stroke();
+        }
+        
+        //Draw node function
+        function _drawNode(fill, emp) {
+            if (canvas.width < (nodeLineCount+2)*scale) {
+            nodeLineCount=0;
+            nodeY++;
+            _drawLoopBackLine();
+            if (nodeDirection==="right")
+        	nodeDirection="left";
+            else if (nodeDirection==="left")
+                nodeDirection="right";
+            }
+            else {
+                if (nodeDirection==="right")
+                    nodeX++;
+                else if (nodeDirection==="left")
+                    nodeX--;
+                _drawLine();
+            }
+            var x = nodeX*scale;
+            var y = nodeY*scale;
+            context.beginPath();
+            context.strokeStyle = "#000";
+            context.lineWidth=nodeLineWidth;
+            context.arc(x, y, nodeRadius, 0, 2 * Math.PI);
+            context.fillStyle = fill;
+            context.fill();
+            context.stroke();
+            nodes.push({
+                id: x + "-" + y,
+                empId: emp.empId,
+                name: emp.name,
+                tenure: emp.tenure,
+                status: emp.status,
+                phone: emp.phone,
+                email: emp.email,
+                doj: emp.doj,
+                wl: emp.wl,
+                hl: emp.hl,
+                cl: emp.cl,
+                rmid: emp.rmid,
+                roleid: emp.roleid,
+                vertid: emp.vertid,
+                acctid: emp.acctid,
+                x: x,
+                y: y,
+                radius: nodeRadius
+            });
+            nodeLineCount++;
+            }
+        
+        function _execute() {
+            return (
+                <div>
+                    {_addNodes()}
+                    {nodes.map(function(circle) {
+                        var circleId = circle.id;
+                        return (
+                            <div id={circleId+"-content"} class="dropdown-content" key={circleId+"-content"}>
+                                <div>Employee Id: {circle.empId}</div>
+                                <div>Name: {circle.name}</div>
+                                <div>Tenure: {circle.tenure}</div>
+                                <div>Status: {circle.status}</div>
+                                <div>Phone: {circle.phone}</div>
+                                <div>Email: {circle.email}</div>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+        
         //Handle the user hovering over a particular node
         //Display a dropdown content box with the relevant information
         //that follows the users mouse
@@ -102,18 +224,20 @@
             var rect = canvas.getBoundingClientRect(),
             x = e.clientX - rect.left,
             y = e.clientY - rect.top,
-            i = 0, circle;
-            while(circle = circles[i++]) {
+            i = 0, circle2;
+            while(circle2 = circles[i++]) {
                 context.beginPath();
-                context.arc(circle.x, circle.y, circle.radius, 0, 2*Math.PI);
+                context.arc(circle2.x, circle2.y, circle2.radius, 0, 2*Math.PI);
                 if (context.isPointInPath(x, y)) {
-                    $('#'+circle.id+'-content').css('left', x+80+"px");
-                    $('#'+circle.id+'-content').css('top', y+150+"px");
-                    $('#'+circle.id+'-content').css('display', 'block');
+                    $('#'+circle2.id+'-content').css('left', x+80+"px");
+                    $('#'+circle2.id+'-content').css('top', y+150+"px");
+                    $('#'+circle2.id+'-content').css('display', 'block');
                     break;
                 }
             }
         };
+        
+        
     </script>
     
     <!--React stuff needed to draw the grid
