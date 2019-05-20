@@ -92,6 +92,7 @@
         context.fill();
         context.closePath();
         
+        /*
         //Add Nodes
         function _addNodes(){
             employees.map(function(employee) {
@@ -237,7 +238,7 @@
             }
         };
         
-        
+        */
     </script>
     
     <!--React stuff needed to draw the grid

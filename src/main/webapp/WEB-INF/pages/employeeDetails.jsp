@@ -51,7 +51,7 @@
  
     <!--Access the data-->
     <sql:query dataSource = "${snapshot}" var = "result">
-         Select EMPID,NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID from information_schema.employee where EMPID = ?::integer;
+         Select EMPID, NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID from information_schema.employee where EMPID = ?::integer;
          <sql:param value = "${empId}" />
     </sql:query>
     
@@ -67,7 +67,7 @@
         <div> AcctID: <c:out value="${row.ACCOUNTID}"/> </div>
         </c:forEach>
     </div>
-    
+        
     <!-- React stuff to get the page footer
     <div id="reactPageFooter"></div>
     <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type="text/babel"></script>
