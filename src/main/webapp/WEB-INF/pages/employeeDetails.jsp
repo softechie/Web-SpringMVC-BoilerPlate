@@ -56,6 +56,17 @@
     </sql:query>
     -->
     
+    <!--Stored procedure for the functions:
+    CREATE OR REPLACE FUNCTION get_employee(id integer) RETURNS record AS $$
+    DECLARE
+            employee information_schema.employee%Rowtype;
+    BEGIN
+            Select EMPID, NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID INTO employee from information_schema.employee where EMPID = id;   
+            RETURN employee;
+    END;                                                       
+    $$ LANGUAGE plpgsql;
+    -->
+    
     <!--Access the stored procedure-->
     <sql:query dataSource = "${snapshot}" var= "result">
         SELECT get_employee(?::integer);

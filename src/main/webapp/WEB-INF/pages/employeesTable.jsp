@@ -54,11 +54,25 @@
          url = "jdbc:postgresql://localhost:5432/postgres"
          user = "postgres"  password = "root"/>
  
-    <!--Access the data-->
+    <!--Access the data using normal DB calls
     <sql:query dataSource = "${snapshot}" var = "result">
          Select EMPID,NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID from information_schema.employee;
     </sql:query>
-         
+    -->
+    
+    <!--Stored Procedure for this function
+    CREATE OR REPLACE FUNCTION get_employees() RETURNS SETOF information_schema.employee AS $func$
+    BEGIN
+            RETURN QUERY Select * from information_schema.employee
+            RETURN;
+    END;
+    $func$ LANGUAGE 'plpgsql';
+    -->
+    <!--Access the stored procedure-->
+    <sql:query dataSource = "${snapshot}" var= "result">
+        SELECT get_employees();
+    </sql:query>
+        
     <!-- Build the table -->     
     <div>
         <table id="empTable" class="table table-striped">
@@ -82,21 +96,40 @@
         </thead>
         <tbody>
         <c:forEach var = "row" items = "${result.rows}">
+            <c:set var = "employee" value="${row}"/>            
             <tr>
-               <td><c:out value = "${row.EMPID}"/></td>
-               <td><c:out value = "${row.NAME}"/></td>
-               <td><c:out value = "${row.STATUS}"/></td>
-               <td><c:out value = "${row.TENURE}"/></td>
-               <td><c:out value = "${row.PHONE}"/></td>
-               <td><c:out value = "${row.EMAIL}"/></td>
-               <td><c:out value = "${row.JOINING_DATE}"/></td>
-               <td><c:out value = "${row.WORKLOC}"/></td>
-               <td><c:out value = "${row.CURRENTLOC}"/></td>
-               <td><c:out value = "${row.HOMELOC}"/></td>
-               <td><c:out value = "${row.ISRELOCATE}"/></td>
-               <td><c:out value = "${row.ROLEID}"/></td>
-               <td><c:out value = "${row.VERTICALID}"/></td>
-               <td><c:out value = "${row.ACCOUNTID}"/></td>
+                <%
+                    String employee = pageContext.getAttribute("employee").toString();
+                    String [] details = employee.split(",");
+                    String empId = details[0].replace("(", "").replace("{", "").replace("\"", "").replace("\'", "").replace("get_employees=", "");
+                    String name = details[1].replace("\"", "").replace("\'", "");
+                    String status = details[2].replace("\"", "").replace("\'", "");
+                    String tenure = details[3].replace("\"", "").replace("\'", "");
+                    String phone = details[4].replace("\"", "").replace("\'", "");
+                    String email = details[5].replace("\"", "").replace("\'", "");
+                    String joinDate = details[6].replace("\"", "").replace("\'", "");
+                    String workloc = details[7].replace("\"", "").replace("\'", "");
+                    String currentloc = details[8].replace("\"", "").replace("\'", "");
+                    String homeloc = details[9].replace("\"", "").replace("\'", "");
+                    String isrelocate = details[10].replace("\"", "").replace("\'", "");
+                    String roleId = details[11].replace("\"", "").replace("\'", "");
+                    String verticalId = details[12].replace("\"", "").replace("\'", "");
+                    String acctId = details[13].replace(")", "").replace("}", "").replace("\"", "").replace("\'", "");
+                %>
+               <td><c:out value = "<%=empId%>"/></td>
+               <td><c:out value = "<%=name%>"/></td>
+               <td><c:out value = "<%=status%>"/></td>
+               <td><c:out value = "<%=tenure%>"/></td>
+               <td><c:out value = "<%=phone%>"/></td>
+               <td><c:out value = "<%=email%>"/></td>
+               <td><c:out value = "<%=joinDate%>"/></td>
+               <td><c:out value = "<%=workloc%>"/></td>
+               <td><c:out value = "<%=currentloc%>"/></td>
+               <td><c:out value = "<%=homeloc%>"/></td>
+               <td><c:out value = "<%=isrelocate%>"/></td>
+               <td><c:out value = "<%=roleId%>"/></td>
+               <td><c:out value = "<%=verticalId%>"/></td>
+               <td><c:out value = "<%=acctId%>"/></td>
             </tr>
          </c:forEach>
         </tbody>
