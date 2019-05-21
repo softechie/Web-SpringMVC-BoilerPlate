@@ -49,23 +49,41 @@
          url = "jdbc:postgresql://localhost:5432/postgres"
          user = "postgres"  password = "root"/>
  
-    <!--Access the data-->
+    <!--Access the data using normal prepared statements
     <sql:query dataSource = "${snapshot}" var = "result">
          Select EMPID, NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID from information_schema.employee where EMPID = ?::integer;
          <sql:param value = "${empId}" />
     </sql:query>
+    -->
+    
+    <!--Access the stored procedure-->
+    <sql:query dataSource = "${snapshot}" var= "result">
+        SELECT get_employee(?::integer);
+        <sql:param value = "${empId}" />
+    </sql:query>
+    
+        
+    <c:set var="employee" value="${result.rows[0]}"/>
+    <%
+        String employee = pageContext.getAttribute("employee").toString();
+        String [] details = employee.split(",");
+        String name = details[1].replace("\"", "").replace("\'", "");
+        String status = details[2].replace("\"", "").replace("\'", "");
+        String tenure = details[3].replace("\"", "").replace("\'", "");
+        String phone = details[4].replace("\"", "").replace("\'", "");
+        String email = details[5].replace("\"", "").replace("\'", "");
+        String acctid = details[13].replace(")", "").replace("}", "").replace("\"", "").replace("\'", "");;
+    %>
     
     <!--JSP stuff to view employee details-->
     <div key = "${empId}">
-        <c:forEach var = "row" items = "${result.rows}">
         <div> Employee Id: <c:out value ="${empId}"/> </div>
-        <div> Name: <c:out value ="${row.NAME}"/> </div>
-        <div> Tenure: <c:out value ="${row.TENURE}"/> </div>
-        <div> Status: <c:out value ="${row.STATUS}"/> </div>
-        <div> Phone: <c:out value="${row.PHONE}"/> </div>
-        <div> Email: <c:out value="${row.EMAIL}"/> </div>
-        <div> AcctID: <c:out value="${row.ACCOUNTID}"/> </div>
-        </c:forEach>
+        <div> Name: <c:out value ="<%=name%>"/> </div>
+        <div> Tenure: <c:out value ="<%=tenure%>"/> </div>
+        <div> Status: <c:out value ="<%=status%>"/> </div>
+        <div> Phone: <c:out value="<%=phone%>"/> </div>
+        <div> Email: <c:out value="<%=email%>"/> </div>
+        <div> AcctID: <c:out value="<%=acctid%>"/> </div>
     </div>
         
     <!-- React stuff to get the page footer
