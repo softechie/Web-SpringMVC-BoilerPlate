@@ -21,13 +21,8 @@
 
 </head>
 
-<body>
-    <!-- React stuff to get the header
-    <div id="reactPageHeader"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type="text/babel"></script>
-    -->
-    
-    <!--JSP stuff to get the header-->
+<body>    
+    <!--JSP: get the header-->
     <div class="nav-container">
             <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="logo" class="logoImg"></img>
                 <ul>
@@ -38,71 +33,18 @@
                 </ul>
     </div>
     
-    <!-- React stuff to get fetch employee details
-    <div id="reactEmployeeDetails"></div>
-    <div id="hiddenEmpId" style="visibility: hidden">${empId}</div>
-    <script src="${pageContext.request.contextPath}/resources/js/getEmployeeDetails.js" type="text/babel"></script>
-    -->
+    <!--JSP: view employee details-->
+    <div>
+        <div> Employee Id: ${empId}</div>
+        <div> Name: ${empName}</div>
+        <div> Tenure: ${empTenure}</div>
+        <div> Status: ${empStatus}</div>
+        <div> Phone: ${empPhone}</div>
+        <div> Email: ${empEmail}</div>
+        <div> AcctID: ${empAcctId}</div>
+    </div>    
     
-    <!--JSP stuff to access the employee details in postgres DB-->
-    <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
-         url = "jdbc:postgresql://localhost:5432/postgres"
-         user = "postgres"  password = "root"/>
- 
-    <!--Access the data using normal prepared statements
-    <sql:query dataSource = "${snapshot}" var = "result">
-         Select EMPID, NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID from information_schema.employee where EMPID = ?::integer;
-         <sql:param value = "${empId}" />
-    </sql:query>
-    -->
-    
-    <!--Stored procedure for the functions:
-    CREATE OR REPLACE FUNCTION get_employee(id integer) RETURNS record AS $$
-    DECLARE
-            employee information_schema.employee%Rowtype;
-    BEGIN
-            Select EMPID, NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID INTO employee from information_schema.employee where EMPID = id;   
-            RETURN employee;
-    END;                                                       
-    $$ LANGUAGE plpgsql;
-    -->
-    
-    <!--Access the stored procedure-->
-    <sql:query dataSource = "${snapshot}" var= "result">
-        SELECT get_employee(?::integer);
-        <sql:param value = "${empId}" />
-    </sql:query>
-    
-        
-    <c:set var="employee" value="${result.rows[0]}"/>
-    <%
-        String employee = pageContext.getAttribute("employee").toString();
-        String [] details = employee.split(",");
-        String name = details[1].replace("\"", "").replace("\'", "");
-        String status = details[2].replace("\"", "").replace("\'", "");
-        String tenure = details[3].replace("\"", "").replace("\'", "");
-        String phone = details[4].replace("\"", "").replace("\'", "");
-        String email = details[5].replace("\"", "").replace("\'", "");
-        String acctid = details[13].replace(")", "").replace("}", "").replace("\"", "").replace("\'", "");;
-    %>
-    
-    <!--JSP stuff to view employee details-->
-    <div key = "${empId}">
-        <div> Employee Id: <c:out value ="${empId}"/> </div>
-        <div> Name: <c:out value ="<%=name%>"/> </div>
-        <div> Tenure: <c:out value ="<%=tenure%>"/> </div>
-        <div> Status: <c:out value ="<%=status%>"/> </div>
-        <div> Phone: <c:out value="<%=phone%>"/> </div>
-        <div> Email: <c:out value="<%=email%>"/> </div>
-        <div> AcctID: <c:out value="<%=acctid%>"/> </div>
-    </div>
-        
-    <!-- React stuff to get the page footer
-    <div id="reactPageFooter"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type="text/babel"></script>
-    -->
-    
-    <!--JSP stuff to get the footer-->
+    <!--JSP: get the footer-->
     <div class="footer-container">
                 <a href="https://spring.io/docs" class="footer-link">Spring Documentation</a>
                 <a href="https://reactjs.org/" class="footer-link">ReactJS Documentation</a>

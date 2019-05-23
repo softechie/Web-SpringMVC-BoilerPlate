@@ -1,5 +1,6 @@
 package com.springmvc.controller;
 
+import com.springmvc.dao.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,10 @@ import com.springmvc.dto.Employee;
 @Controller
 @RequestMapping( value = "/employee")
 public class EmployeeWebController {
+    
+        EmployeeDao empDao;
 	
-	private static Logger log = LoggerFactory.getLogger(EmployeeWebController.class);
+	private static final Logger log = LoggerFactory.getLogger(EmployeeWebController.class);
 	
 	/** Maps the GET request to /employee/table to get the page for the Table of Employees
 	 * @param model the model of the window document to add attributes to
@@ -38,7 +41,15 @@ public class EmployeeWebController {
             return "employeesTable";
         }
         else {
-	        model.addAttribute("empId", employee.getEmpId());
+                empDao = new EmployeeDao();
+                Employee emp = empDao.getEmployee(employee.getEmpId());
+	        model.addAttribute("empId", emp.getEmpId());
+                model.addAttribute("empName", emp.getName());
+                model.addAttribute("empTenure", emp.getTenure());
+                model.addAttribute("empStatus", emp.getStatus());
+                model.addAttribute("empPhone", emp.getPhone());
+                model.addAttribute("empEmail", emp.getEmail());
+                model.addAttribute("empAcctId", emp.getAcctid());
 	        return "employeeDetails";
         }
     }
