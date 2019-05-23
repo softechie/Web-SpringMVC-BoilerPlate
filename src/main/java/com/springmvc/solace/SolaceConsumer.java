@@ -1,4 +1,4 @@
-package com.springmvc.controller;
+package com.springmvc.solace;
 
 import com.solacesystems.jcsmp.BytesXMLMessage;
 import com.solacesystems.jcsmp.InvalidPropertiesException;

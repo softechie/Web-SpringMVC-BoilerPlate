@@ -1,4 +1,4 @@
-package com.springmvc.controller;
+package com.springmvc.solace;
 
 import com.solacesystems.jcsmp.InvalidPropertiesException;
 import com.solacesystems.jcsmp.JCSMPException;
