@@ -2,7 +2,6 @@ package com.springmvc.dto;
 
 /**
  * @author mbaransln
- * Data transfer object being used by API to transfer the Employee data over network.
  *
  */
 public class Employee {

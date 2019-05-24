@@ -12,10 +12,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author mbaransln
- * This is sample DAO class to fetch the employee details. 
- * Once DB is available and tables are created, we can uncomment the below code.
- * 
+ * @author andrew diamond 
  */
 @Repository
 public class EmployeeDao  {
