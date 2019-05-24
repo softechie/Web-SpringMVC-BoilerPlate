@@ -19,10 +19,6 @@
     <link href="${pageContext.request.contextPath}" id="resourcesPath">
 </head>
 <body>
-    <!-- React Stuff to get the header
-    <div id="reactPageHeader"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type="text/babel"></script>
-    -->
     
     <!--JSP stuff to get the header-->
     <div class="nav-container">
@@ -38,9 +34,9 @@
     <div class="info">
         <h3>1) All Employees Example</h3>
         <h4>Simple JSP database calls for all employees and a single employee</h4>
-        <p>The data in the table is fetched using JSTL.</p>
+        <p>The data in the table is fetched using JBCD template object and passing it through the controller.</p>
         <p>You can view specific employee details by typing in the Employee ID.</p>
-        <p>It fetches the Employee details with JSTL and displays them on the screen.</p>
+        <p>It fetches the Employee details with JBCD template object and displays them on the screen.</p>
     </div>
 
     <form:form method="POST" action="/springMVC/employee/table" modelAttribute="employee">
@@ -53,25 +49,6 @@
     <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
          url = "jdbc:postgresql://localhost:5432/postgres"
          user = "postgres"  password = "root"/>
- 
-    <!--Access the data using normal DB calls
-    <sql:query dataSource = "${snapshot}" var = "result">
-         Select EMPID,NAME,STATUS,TENURE,PHONE,EMAIL,JOINING_DATE,WORKLOC,CURRENTLOC,HOMELOC,ISRELOCATE,ROLEID,VERTICALID,ACCOUNTID from information_schema.employee;
-    </sql:query>
-    -->
-    
-    <!--Stored Procedure for this function
-    CREATE OR REPLACE FUNCTION get_employees() RETURNS SETOF information_schema.employee AS $func$
-    BEGIN
-            RETURN QUERY Select * from information_schema.employee
-            RETURN;
-    END;
-    $func$ LANGUAGE 'plpgsql';
-    -->
-    <!--Access the stored procedure-->
-    <sql:query dataSource = "${snapshot}" var= "result">
-        SELECT get_employees();
-    </sql:query>
         
     <!-- Build the table -->     
     <div>
@@ -95,26 +72,26 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach var = "row" items = "${result.rows}">
+        <c:forEach var = "row" items = "${empList}">
             <c:set var = "employee" value="${row}"/>            
             <tr>
                 <%
                     String employee = pageContext.getAttribute("employee").toString();
                     String [] details = employee.split(",");
-                    String empId = details[0].replace("(", "").replace("{", "").replace("\"", "").replace("\'", "").replace("get_employees=", "");
-                    String name = details[1].replace("\"", "").replace("\'", "");
-                    String status = details[2].replace("\"", "").replace("\'", "");
-                    String tenure = details[3].replace("\"", "").replace("\'", "");
-                    String phone = details[4].replace("\"", "").replace("\'", "");
-                    String email = details[5].replace("\"", "").replace("\'", "");
-                    String joinDate = details[6].replace("\"", "").replace("\'", "");
-                    String workloc = details[7].replace("\"", "").replace("\'", "");
-                    String currentloc = details[8].replace("\"", "").replace("\'", "");
-                    String homeloc = details[9].replace("\"", "").replace("\'", "");
-                    String isrelocate = details[10].replace("\"", "").replace("\'", "");
-                    String roleId = details[11].replace("\"", "").replace("\'", "");
-                    String verticalId = details[12].replace("\"", "").replace("\'", "");
-                    String acctId = details[13].replace(")", "").replace("}", "").replace("\"", "").replace("\'", "");
+                    String empId = details[0].replace("{", "");
+                    String name = details[1].replace("null", "");
+                    String status = details[2].replace("null", "");
+                    String tenure = details[3].replace("null", "");
+                    String phone = details[4].replace("null", "");
+                    String email = details[5].replace("null", "");
+                    String joinDate = details[6].replace("null", "");
+                    String workloc = details[7].replace("null", "");
+                    String currentloc = details[8].replace("null", "");
+                    String homeloc = details[9].replace("null", "");
+                    String isrelocate = details[10].replace("null", "");
+                    String roleId = details[11].replace("null", "");
+                    String verticalId = details[12].replace("null", "");
+                    String acctId = details[13].replace("}", "").replace("null", "");
                 %>
                <td><c:out value = "<%=empId%>"/></td>
                <td><c:out value = "<%=name%>"/></td>
@@ -142,15 +119,6 @@
                 <a href="https://reactjs.org/" class="footer-link">ReactJS Documentation</a>
                 <a href="https://docs.mongodb.com/" class="footer-link">MongoDB Documentation</a>
     </div>
-         
-    <!--React Stuff for getting the employee Table     
-    <div id="reactEmployeesTable"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getEmployeesTable.js" type="text/babel"></script>
-    
-    <!--React stuff for getting the footer
-    <div id="reactPageFooter"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type="text/babel"></script>
-    -->
     
 </body>
 </html>

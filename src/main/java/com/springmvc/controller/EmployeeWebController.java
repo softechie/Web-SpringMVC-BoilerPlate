@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springmvc.dto.Employee;
+import java.util.List;
 
 /** Controller to handle the URL requests and map them to Get/Post Employee pages
  * @author aprieger */
@@ -27,7 +28,12 @@ public class EmployeeWebController {
 	 * @return employeesTable the name of the JSP page that contains the Employees Table */
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
 	public String getEmployeesTable(Model model){
-		model.addAttribute("employee", new Employee());
+                System.out.println("****************Inside GET request****************");
+                empDao = new EmployeeDao();
+                List<Employee> empList = empDao.getEmployees();
+                System.out.println(empList);
+		model.addAttribute("empList", empList);
+                model.addAttribute("employee", new Employee());
 		return "employeesTable";
 	}
 	

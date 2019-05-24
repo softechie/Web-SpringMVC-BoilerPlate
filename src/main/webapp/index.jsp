@@ -18,8 +18,16 @@
     <link href="${pageContext.request.contextPath}" id="resourcesPath">
 </head>
 <body>
-    <div id="reactPageHeader"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getPageHeader.js" type = "text/babel"></script>
+    <!--JSP: get the header-->
+    <div class="nav-container">
+            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="logo" class="logoImg"></img>
+                <ul>
+                    <li><a href="/springMVC/">Home</a></li>
+                    <li><a href="/springMVC/employee/table">1) Employee Table</a></li>
+                    <li><a href="/springMVC/employee/map">2) Employee Map</a></li>
+                    <li><a href="/springMVC/job/map">3) Job Map</a></li>
+                </ul>
+    </div>
     
     <div class="info">
         <div>
@@ -46,7 +54,11 @@
         </div>
     </div>
         
-    <div id="reactPageFooter"></div>
-    <script src="${pageContext.request.contextPath}/resources/js/getPageFooter.js" type = "text/babel"></script>
+    <!--JSP: get the footer-->
+    <div class="footer-container">
+                <a href="https://spring.io/docs" class="footer-link">Spring Documentation</a>
+                <a href="https://reactjs.org/" class="footer-link">ReactJS Documentation</a>
+                <a href="https://docs.mongodb.com/" class="footer-link">MongoDB Documentation</a>
+    </div>
 </body>
 </html>
