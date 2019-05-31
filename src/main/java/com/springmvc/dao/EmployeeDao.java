@@ -12,6 +12,9 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
@@ -141,8 +144,12 @@ public class EmployeeDao  {
     }
         
         public void deleteEmployee(final String id) throws SQLException {
+            
             System.out.println("Deleting employee: " + id);
-            String sql = "DELETE FROM information_schema.employee WHERE EMPID = ?::integer";
-            jdbcTemplate.update(sql, Integer.valueOf(id));
+             SimpleJdbcCall c = new SimpleJdbcCall(jdbcTemplate).withProcedureName("deleteEmployee");
+            SqlParameterSource in = new MapSqlParameterSource().addValue("id",id);
+            c.execute(in);
+            //String sql = "DELETE FROM information_schema.employee WHERE EMPID = ?::integer";
+            //jdbcTemplate.update(sql, Integer.valueOf(id));
         }
 }
