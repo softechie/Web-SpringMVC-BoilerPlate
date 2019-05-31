@@ -142,7 +142,7 @@ public class EmployeeDao  {
         
         public void deleteEmployee(final String id) throws SQLException {
             System.out.println("Deleting employee: " + id);
-            String sql = "DELETE FROM information_schema.employee WHERE EMPID = ?";
+            String sql = "DELETE FROM information_schema.employee WHERE EMPID = ?::integer";
             jdbcTemplate.update(sql, Integer.valueOf(id));
         }
 }

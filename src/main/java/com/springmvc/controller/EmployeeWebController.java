@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springmvc.dto.Employee;
+import java.sql.SQLException;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /** Controller to handle the URL requests and map them to Get/Post Employee pages
  * @author aprieger */
@@ -31,7 +34,6 @@ public class EmployeeWebController {
                 System.out.println("****************Inside GET request****************");
                 empDao = new EmployeeDao();
                 List<Employee> empList = empDao.getEmployees();
-                System.out.println(empList);
 		model.addAttribute("empList", empList);
                 model.addAttribute("employee", new Employee());
 		return "employeesTable";
@@ -85,5 +87,15 @@ public class EmployeeWebController {
 	        model.addAttribute("employee", employee);
 	        return "printNewEmployee";
         }
+    }
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteEmployee(@RequestParam("id")String id, @ModelAttribute("employee") Employee employee, BindingResult result, Model model) throws SQLException{
+        empDao = new EmployeeDao();
+        System.out.println("*******Deleting Record: " + id);
+        empDao.deleteEmployee(id);
+        List<Employee> empList = empDao.getEmployees();
+        model.addAttribute("empList", empList);
+        model.addAttribute("employee", new Employee());
+        return "employeesTable";
     }
 }

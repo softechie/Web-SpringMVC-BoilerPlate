@@ -44,11 +44,6 @@
         <form:input path="empId" name="empId" />
         <input type="submit" value="View">
     </form:form>
-    
-    <!--Add Database Access here to get rid of React-->
-    <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
-         url = "jdbc:postgresql://localhost:5432/postgres"
-         user = "postgres"  password = "root"/>
         
     <!-- Build the table -->     
     <div>
@@ -107,6 +102,12 @@
                <td><c:out value = "<%=roleId%>"/></td>
                <td><c:out value = "<%=verticalId%>"/></td>
                <td><c:out value = "<%=acctId%>"/></td>
+               <td>
+                   <form:form method="GET" action="/springMVC/employee/delete">
+                        <input name="id" value="<%=empId%>" style="visibility:hidden"/>
+                        <input type="submit" value="Delete"/>
+                   </form:form>
+               </td>
             </tr>
          </c:forEach>
         </tbody>
