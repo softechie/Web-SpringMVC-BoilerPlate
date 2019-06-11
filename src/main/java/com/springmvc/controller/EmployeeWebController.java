@@ -1,5 +1,7 @@
 package com.springmvc.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,8 @@ import com.springmvc.dto.Employee;
 @Controller
 @RequestMapping( value = "/employee")
 public class EmployeeWebController {
+	
+	private static Logger log = LoggerFactory.getLogger(EmployeeWebController.class);
 	
 	/** Maps the GET request to /employee/table to get the page for the Table of Employees
 	 * @param model the model of the window document to add attributes to
@@ -45,4 +49,24 @@ public class EmployeeWebController {
 	public String getEmployeesMap(){
 		return "employeesMap";
 	}
+	
+	//maps to form page to add a new employee
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String getEmployeeForm(Model model){
+		model.addAttribute("employee", new Employee());
+		log.info("Navigating to new employee form...");
+		return "newEmployee";
+	}
+	
+	//prints the data entered in the form
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String postNewEmployeeDetails(@ModelAttribute("employee") Employee employee, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "newEmployee";
+        }
+        else {
+	        model.addAttribute("employee", employee);
+	        return "printNewEmployee";
+        }
+    }
 }
