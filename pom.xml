@@ -140,10 +140,36 @@
           </execution>
             </executions>
         </plugin> -->
+		<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>${maven-dependecy-plugin.version}</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals><goal>copy</goal></goals>
+                    <configuration>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>com.github.jsimone</groupId>
+                                <artifactId>webapp-runner</artifactId>
+                                <version>${webapp-runner-tomcat.version}</version>
+                                <destFileName>webapp-runner.jar</destFileName>
+                            </artifactItem>
+                        </artifactItems>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
   
   <properties>
     <spring.version>4.0.2.RELEASE</spring.version>
+	  <maven-war-plugin.version>2.6</maven-war-plugin.version>
+      <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+      <maven-dependecy-plugin.version>2.10</maven-dependecy-plugin.version>
+      <webapp-runner-tomcat.version>8.0.30.2</webapp-runner-tomcat.version>
+      <maven-tomcat-plugin>2.2</maven-tomcat-plugin>
   </properties>
 </project>
